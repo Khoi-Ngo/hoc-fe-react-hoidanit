@@ -27,13 +27,9 @@ const App = () => {
         </a>
       </div>
       <h1>Test change something in the code - Hello world</h1>
-      <div>
-        <MyComponent />
-      </div>
-      <div>
-        <SecondComponent />
-      </div>
-      <div><AdditionalSecondComponent /></div>
+      <MyComponent />
+      <SecondComponent />
+      <AdditionalSecondComponent />
 
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
