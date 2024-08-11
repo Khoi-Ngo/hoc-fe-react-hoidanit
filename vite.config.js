@@ -10,4 +10,10 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  // Config to use importing absolute path in ReactJS
+  // resolve: {
+  //   alias: {
+  //     src: "/src",
+  //   },
+  // },//other config alias @Component, baseurl ...
 })
