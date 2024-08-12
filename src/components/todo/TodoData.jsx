@@ -3,13 +3,13 @@ const TodoData = (props) => {
     console.log(props);
 
 
-    const {name, someOtherData} = props;
-    
+    const { name, someOtherData } = props;
+
 
     return (<>
         <div className='task-list-table'>
             <div>My name is {someOtherData.address}</div>
-            <div>{JSON.stringify(name)}</div>
+            <div>{JSON.stringify()}</div>
             <div>Learning React</div>
             <div>Coding Java</div>
         </div>

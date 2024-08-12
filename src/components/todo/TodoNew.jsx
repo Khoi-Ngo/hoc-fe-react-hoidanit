@@ -1,4 +1,6 @@
-const TodoNew = () => {
+const TodoNew = (props) => {
+    const {addNewTodo} = props;
+    addNewTodo(`created by Khoi Ngo`);
     return (
         <>
             <div className='todo-input-form'>
