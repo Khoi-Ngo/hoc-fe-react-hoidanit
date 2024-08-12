@@ -33,3 +33,25 @@ Cách chạy tại chế độ production:
 3. Update file .env.production (nếu cần thiết)
 4. Build dự án: npm run build
 5. Chạy dự án: npm run preview
+
+
+
+<!-- ! Structure of project -->
+public : user can access -->
+src: dev only
+eslint: find and fix problems javascript code
+config gitignore : ignore git scan 
+<!--! index.html -> middle step converting react to html -> browser -->
+<!-- package.json config dependencies --> more detail of config package-lock.json
+vite.config.js another file to config running app
+assets: containing img, media ...
+
+Another information about file extension
+
+ts/js vs tsx/jsx
+
+with babel compiler both are acceptable 
+with vite compiler just only tsx/jsx
+
+
+because browser only know Javascript dontknow ReactJS so the app need compile before running on browser with ReactJS
