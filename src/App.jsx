@@ -1,39 +1,39 @@
-
 import './app_style.css';
 import TodoData from './components/todo/TodoData';
 import TodoNew from './components/todo/TodoNew';
 import reactLogo from './assets/react.svg';
-
+import { useState } from 'react';
 
 const App = () => {
+  const [todoList, setTodoList] = useState([]);
 
-  const testInheritVar1 = `Khoi Ngo1`;
-  const testInheritVar2 = `Khoi Ngo2`;
-  const testInheritVar3 = `Khoi Ngo3`;
-  const testInheritVar4 = `Khoi Ngo4`;
-  const testInheritVar5 = `Khoi Ngo5`;
-  const someOtherData = { address: `tphcm`, country: `vietnam` };
-
-  const addNewTodo = (str) => {
-    alert(`Call me ${str}`);
+  const addNewTodo = (newItem) => {
+    setTodoList([...todoList, { id: todoList.length + 1, value: newItem }]);
   }
+
   return (
     <>
       <div className="todo-container">
         <div className="todo-title">TODO list app - ReactJS</div>
-        <TodoNew
-          addNewTodo={addNewTodo} />
-        <TodoData
-          name={[testInheritVar1, testInheritVar2, testInheritVar3, testInheritVar4, testInheritVar5]}
-          someOtherData={someOtherData}
-        // style={{ color: 'red', backgroundColor: 'blue', padding: '10px' }} ???
-        />
-        <div className='todo-image' style={{}}>
-          <img src={reactLogo} className='logo' />
-        </div>
+        <TodoNew addNewTodo={addNewTodo} />
+
+
+        {
+          todoList.length > 0 ? (
+            <TodoData todoList={todoList} />
+          ) : null
+        }
+
+        {
+          todoList.length <= 0 ? (
+            <div className='todo-image' style={{}}>
+              <img src={reactLogo} className='logo' alt="React Logo" />
+            </div>
+          ) : null
+        }
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

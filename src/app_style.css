@@ -16,7 +16,7 @@ body, html {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 800px;
   text-align: center;
 }
 
@@ -38,7 +38,7 @@ body, html {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 70%;
+  width: 73%;
 }
 
 .todo-input-form .btn {
@@ -49,6 +49,7 @@ body, html {
   cursor: pointer;
   background-color: #28a745;
   color: #fff;
+  width: 25%;
 }
 
 .todo-input-form .btn:hover {
@@ -108,4 +109,12 @@ body, html {
 .logo {
     animation: logo-spin infinite 20s linear;
   }
+}
+
+.item-todo{
+  display: flex;
+  justify-content: space-between;
+}
+.item-todo .btn{
+  width: 15%;
 }

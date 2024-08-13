@@ -1,20 +1,25 @@
+import { useState } from "react";
+
 const TodoNew = (props) => {
-    const { addNewTodo } = props;
-    // addNewTodo(`created by Khoi Ngo`);
-    const handleClickAddBtn = () => {
-        alert(`You sure about that`);
-    }
-
-    //! onchange event in react inputted param event having many usages
-
-    const someFunction = (event) => {
-        console.log(`Check inputted text: ${event.target.value}`);
-    }
-
-
+    //handle onchange input text
+    const [valueInput, setValueInput] = useState();
     const handleOnchangeInput = (someText) => {
-        console.log(`Check inputted text: ${someText}`);
+        setValueInput(someText);
     }
+    //! no overriding the setValueInput
+    //handle onclick button add
+    const { addNewTodo } = props;
+    const handleClickAddBtn = () => {
+        //add new item into todolist
+        addNewTodo(valueInput);
+    }
+    //adding eventlistenner to clear after click add
+    // let btn = document.querySelector(`.btn.btn-success`);
+    // btn.addEventListener('click', clearInputText);
+    // const clearInputText = () => {
+    //     let inputTextBox = document.getElementById(`input-text`);
+    //     inputTextBox.value = ``;
+    // }
     return (
         <>
             <div className='todo-input-form'>
