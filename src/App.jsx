@@ -16,20 +16,14 @@ const App = () => {
       <div className="todo-container">
         <div className="todo-title">TODO list app - ReactJS</div>
         <TodoNew addNewTodo={addNewTodo} />
-
-
         {
           todoList.length > 0 ? (
             <TodoData todoList={todoList} />
-          ) : null
-        }
-
-        {
-          todoList.length <= 0 ? (
+          ) : (
             <div className='todo-image' style={{}}>
               <img src={reactLogo} className='logo' alt="React Logo" />
             </div>
-          ) : null
+          )
         }
       </div>
     </>
