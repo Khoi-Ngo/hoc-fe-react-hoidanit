@@ -1,7 +1,10 @@
 const TodoData = (props) => {
-    const { todoList } = props;
+    const { todoList, deleteTodo } = props;
     console.log(todoList);
     //todo: handle click delete
+    const handleDelete = (id) => {
+        deleteTodo(id);
+    }
 
 
     return (
@@ -9,8 +12,13 @@ const TodoData = (props) => {
             <div className='task-list-table'>
                 {todoList.map((item, index) => {
                     //! key map should not refer index of map, arr ... || => use key from BACKEND
-                    return (<div className="item-todo" key={index}>{item.value}
-                        <button className="btn"><i className="fa fa-trash"></i></button>
+                    return (<div className="item-todo" key={index}>
+                        {/* content     */}
+                        {item.value}
+                        {/* delete button */}
+                        <button className="btn"
+                            onClick={() => { handleDelete(item.id) }}
+                        ><i className="fa fa-trash"></i></button>
                     </div>);
                 })}
             </div>
