@@ -17,6 +17,7 @@ const TodoData = (props) => {
                         {item.value}
                         {/* delete button */}
                         <button className="btn"
+                            style={{ cursor: "pointer" }}
                             onClick={() => { handleDelete(item.id) }}
                         ><i className="fa fa-trash"></i></button>
                     </div>);
