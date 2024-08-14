@@ -1,6 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -10,7 +10,7 @@ import UsersPage from './pages/User.jsx';
 import RegisterPage from './pages/Register.jsx';
 import ProductsPage from './pages/Product.jsx';
 import LoginPage from './pages/Login.jsx';
-import './styles/global.css'
+import './styles/global.css';
 
 const router = createBrowserRouter([
   {
