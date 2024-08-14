@@ -1,4 +1,3 @@
-import './app_style.css';
 import TodoData from './components/todo/TodoData';
 import TodoNew from './components/todo/TodoNew';
 import reactLogo from './assets/react.svg';

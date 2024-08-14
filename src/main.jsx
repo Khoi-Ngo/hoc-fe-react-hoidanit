@@ -5,7 +5,12 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import ErrorPage from './components/error-components/errorpage.jsx';
+import ErrorPage from './pages/errorpage.jsx';
+import UsersPage from './pages/User.jsx';
+import RegisterPage from './pages/Register.jsx';
+import ProductsPage from './pages/Product.jsx';
+import LoginPage from './pages/Login.jsx';
+import './styles/global.css'
 
 const router = createBrowserRouter([
   {
@@ -15,22 +20,22 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <div> login page</div>,
+    element: <LoginPage/>,
     errorElement: <ErrorPage />
   },
   {
     path: "/register",
-    element: <div> register page</div>,
+    element: <RegisterPage/>,
     errorElement: <ErrorPage />
   },
   {
     path: "/users",
-    element: <div> users page</div>,
+    element: <UsersPage/>,
     errorElement: <ErrorPage />
   },
   {
     path: "/products",
-    element: <div> products page</div>,
+    element: <ProductsPage/>,
     errorElement: <ErrorPage />
   },
 
