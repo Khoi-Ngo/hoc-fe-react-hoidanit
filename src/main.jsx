@@ -11,22 +11,27 @@ import RegisterPage from './pages/Register.jsx';
 import ProductsPage from './pages/Product.jsx';
 import LoginPage from './pages/Login.jsx';
 import './styles/global.css';
+import TodoApp from './components/todo/TodoApp.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
-    children : [
+    children: [
+      {
+        //! only this child inherit from App (same url ???)/ || homepage
+        //! in that case the child belows will inherit nothing from parent (App component)
+        index: true,
+        element: <TodoApp />
+      },
       {
         path: "/users",
         element: <UsersPage />,
-        errorElement: <ErrorPage />
       },
       {
         path: "/products",
         element: <ProductsPage />,
-        errorElement: <ErrorPage />
       },
     ],
   },
