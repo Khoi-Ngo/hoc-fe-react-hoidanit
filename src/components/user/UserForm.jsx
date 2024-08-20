@@ -18,7 +18,15 @@ const UserForm = () => {
 
     const handleOnClick = () => {
         setIsModelOpen(true);
-    }
+    };
+
+    const resetAndClearUserCreateModal = () => {
+        setFullName(``);
+        setEmail(``);
+        setPassword(``);
+        setPhone(``);
+        setIsModelOpen(false);
+    };
 
 
 
@@ -40,12 +48,8 @@ const UserForm = () => {
             })
         }
         //close modal
-        setIsModelOpen(false);
-        //reload page
-        setTimeout(() => {
-            window.location.reload();
-        }, 2500);
-    }
+        resetAndClearUserCreateModal();
+    };
 
 
     const handleCancelClickModalCreate = () => {
@@ -55,7 +59,7 @@ const UserForm = () => {
             okText: 'Yes, Cancel',
             cancelText: 'No, Continue',
             onOk: () => {
-                setIsModelOpen(false);
+                resetAndClearUserCreateModal();
                 notification.info({
                     message: 'Action Cancelled',
                     description: 'The form has been closed.',
@@ -68,8 +72,8 @@ const UserForm = () => {
                 });
             },
         });
-        // setIsModelOpen(false);
-    }
+
+    };
 
     return (
         <>
