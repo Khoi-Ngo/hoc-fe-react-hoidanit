@@ -10,7 +10,7 @@ import { ExclamationCircleFilled } from "@ant-design/icons";
 const UserForm = (props) => {
     //declaring state variables
 
-    const {loadUser} = props;
+    const { loadUser } = props;
     const [fullName, setFullName] = useState(``);
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
@@ -22,10 +22,10 @@ const UserForm = (props) => {
     };
 
     const resetAndClearUserCreateModal = () => {
-        setFullName(``);
-        setEmail(``);
-        setPassword(``);
-        setPhone(``);
+        setFullName(null);
+        setEmail(null);
+        setPassword(null);
+        setPhone(null);
         setIsModelOpen(false);
     };
 
@@ -42,7 +42,8 @@ const UserForm = (props) => {
                     description: "Tạo mới user thành công"
                 }
             );
-            loadUser();
+            await loadUser();
+            resetAndClearUserCreateModal();
         } else {
             notification.error({
                 message: "Cannot create user",
@@ -50,7 +51,6 @@ const UserForm = (props) => {
             })
         }
         //close modal
-        resetAndClearUserCreateModal();
     };
 
 
