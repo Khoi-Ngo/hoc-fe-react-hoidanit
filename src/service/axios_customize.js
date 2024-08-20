@@ -5,7 +5,7 @@ import axios from "axios";
 
 // Set config defaults when creating the instance
 const instance = axios.create({
-    baseURL: 'http://localhost:8080/api/v1'
+    baseURL: import.meta.env.VITE_BACKEND_URL
 });
 
 // Alter defaults after instance has been created
@@ -17,10 +17,10 @@ const instance = axios.create({
 instance.interceptors.request.use(function (config) {
     // Do something before request is sent
     return config;
-  }, function (error) {
+}, function (error) {
     // Do something with request error
     return Promise.reject(error);
-  });
+});
 
 // Add a response interceptor
 instance.interceptors.response.use(function (response) {
@@ -29,12 +29,13 @@ instance.interceptors.response.use(function (response) {
     //! Check data from response
     //? Response here having many config relating to HTTP Response 
     // => just need data if success
-    if(response.data != null && response.data.data != null)
-    return response.data;
-  }, function (error) {
+    if (response.data != null && response.data.data != null)
+        return response.data;//response {status, payload, ...}
+}, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    if (error.response != null && error.response.data != null) return error.response.data;
     return Promise.reject(error);
-  });
+});
 
 export default instance;

@@ -17,13 +17,18 @@ const UserForm = () => {
     const handleOnClick = async () => {
         let response = await createUserAPI(fullName, email, password, phone);
         // console.log(`Check response promise from axios: ${response.data.data}`);
-        if (response.data != null) {
+        if (response.data != null) {//after going through interceptor the response 
             notification.success(
                 {
                     message: "created user",
                     description: "Tạo mới user thành công"
                 }
             );
+        }else{
+            notification.error({
+                message: "Cannot create user",
+                description: JSON.stringify(response.message)
+            })
         }
     }
 
