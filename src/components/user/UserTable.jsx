@@ -1,79 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Space, Table, Tag } from 'antd';
+import { fetchAllUsersAPI } from "../../service/api_service";
+
 const UserTable = () => {
+    // var check = false;
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            render: (text) => <a>{text}</a>,
+            title: 'ID',
+            dataIndex: '_id',
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
-        },
-        {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'Tags',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: (_, { tags }) => (
-                <>
-                    {tags.map((tag) => {
-                        let color = tag.length > 5 ? 'geekblue' : 'green';
-                        if (tag === 'loser') {
-                            color = 'volcano';
-                        }
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </>
-            ),
-        },
-        {
-            title: 'Action',
-            key: 'action',
-            render: (_, record) => (
-                <Space size="middle">
-                    <a>Invite {record.name}</a>
-                    <a>Delete</a>
-                </Space>
-            ),
-        },
-    ];
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-            tags: ['nice', 'developer'],
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-            tags: ['loser'],
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sydney No. 1 Lake Park',
-            tags: ['cool', 'teacher'],
-        },
-    ];
+            title: 'Avatar',
+            dataIndex: 'avatar',
 
-    return (<><Table columns={columns} dataSource={data} /></>);
+        },
+        {
+            title: 'Full name',
+            dataIndex: 'fullName',
+        },
+        {
+            title: 'Email',
+            dataIndex: 'email',
+        },
+        {
+            title: 'Role',
+            dataIndex: 'role',
+        },
+    ];
+    const [dataUsers, setDataUsers] = useState();
+
+    const loadUser = async () => {
+        const res = await fetchAllUsersAPI();
+        // check = true;
+        setDataUsers(res.data);
+    }
+
+
+    //! Cannot invoke loadUser here => mounting HTML -> updating data by loadUser => Rerender => repeat => fetch infinity
+
+    // if (check !== true) {
+    //     loadUser();
+    //     console.log('check somthing');
+    // }
+    return (<><Table columns={columns} dataSource={dataUsers} /></>);
 }
 
 export default UserTable;
