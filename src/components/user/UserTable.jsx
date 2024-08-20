@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Space, Table, Tag } from 'antd';
-import { fetchAllUsersAPI } from "../../service/api_service";
+import React from 'react';
+import { Table } from 'antd';
 
-const UserTable = () => {
+const UserTable = (props) => {
+    let {dataUsers} = props;
     // var check = false;
     const columns = [
         {
@@ -34,27 +34,8 @@ const UserTable = () => {
             dataIndex: 'role',
         },
     ];
-    const [dataUsers, setDataUsers] = useState();
-    useEffect(() => {
-        console.log(`Check use useEffect method hook`);
-        loadUser();
-    }, []);
-
-    //! [] meaning run ONLY ONCE
-
-    //! Cannot invoke setDataUsers|| loadUser outside the useEffect => mounting HTML -> updating data by setDataUsers|| loadUser => Rerender => repeat => fetch infinity
 
 
-
-    //this is hardcode img link: https://cdn-icons-png.flaticon.com/512/5556/5556468.png
-    const loadUser = async () => {
-        const res = await fetchAllUsersAPI();
-        const data = res.data;
-        for (let item of data) {
-            item.avatar = 'https://cdn-icons-png.flaticon.com/512/5556/5556468.png';
-        }
-        setDataUsers(data);
-    }
 
     return (<><Table
         columns={columns}

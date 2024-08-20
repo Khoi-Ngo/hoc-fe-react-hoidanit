@@ -5,11 +5,12 @@ import { createUserAPI } from "../../service/api_service";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 
 
+//TODO: fixing clearing fields
 
-
-const UserForm = () => {
+const UserForm = (props) => {
     //declaring state variables
 
+    const {loadUser} = props;
     const [fullName, setFullName] = useState(``);
     const [email, setEmail] = useState(``);
     const [password, setPassword] = useState(``);
@@ -41,6 +42,7 @@ const UserForm = () => {
                     description: "Tạo mới user thành công"
                 }
             );
+            loadUser();
         } else {
             notification.error({
                 message: "Cannot create user",
