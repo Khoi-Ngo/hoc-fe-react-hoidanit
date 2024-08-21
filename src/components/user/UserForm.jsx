@@ -5,7 +5,6 @@ import { createUserAPI } from "../../service/api_service";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 
 
-//TODO: fixing clearing fields
 
 const UserForm = (props) => {
     //declaring state variables
@@ -42,8 +41,7 @@ const UserForm = (props) => {
                     description: "Tạo mới user thành công"
                 }
             );
-            await loadUser();
-            resetAndClearUserCreateModal();
+
         } else {
             notification.error({
                 message: "Cannot create user",
@@ -51,6 +49,8 @@ const UserForm = (props) => {
             })
         }
         //close modal
+        await loadUser();
+        resetAndClearUserCreateModal();
     };
 
 
@@ -97,7 +97,7 @@ const UserForm = (props) => {
                 >
                     <div>
                         <span>Full name</span>
-                        <Input placeholder="Input full name"
+                        <Input value={fullName}
                             onChange={(event) => {
                                 setFullName(event.target.value);
                             }}
@@ -105,21 +105,21 @@ const UserForm = (props) => {
                     </div>
                     <div>
                         <span>Email</span>
-                        <Input placeholder="Input email"
+                        <Input value={email}
                             onChange={(event) => {
                                 setEmail(event.target.value);
                             }} />
                     </div>
                     <div>
                         <span>Password</span>
-                        <Input.Password placeholder="Input password"
+                        <Input.Password value={password}
                             onChange={(event) => {
                                 setPassword(event.target.value);
                             }} />
                     </div>
                     <div>
                         <span>Phone number</span>
-                        <Input placeholder="Phone number"
+                        <Input value={phone}
                             onChange={(event) => {
                                 setPhone(event.target.value);
                             }} />
