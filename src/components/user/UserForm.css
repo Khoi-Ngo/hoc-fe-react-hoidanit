@@ -13,3 +13,40 @@
     margin: 5px;
     margin-left: 0;
 }
+
+.user-detail-form {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.user-avatar {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-avatar .ant-avatar {
+    border: 2px solid #1890ff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-info p {
+    margin: 8px 0;
+    color: #333;
+}
+
+.user-info p strong {
+    color: #1890ff;
+}
+
+.user-info p + p {
+    border-top: 1px solid #ddd;
+    padding-top: 8px;
+}
+

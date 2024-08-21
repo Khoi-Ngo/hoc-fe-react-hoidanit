@@ -1,14 +1,57 @@
 import React, { useState } from 'react';
 import { Table } from 'antd';
-import { Space, Tag } from 'antd';
+import { Space, Tag, Modal, notification } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import UpdateForm from './UpdateForm';
+import UserDetailForm from './UserDetailForm';
+import { deleteUserAPI } from "../../service/api_service";
+import { ExclamationCircleFilled } from "@ant-design/icons";
+
+//TODO: Check to delete correctly
 
 
 const UserTable = (props) => {
     let { dataUsers, loadUser } = props;
     const [dataUpdate, setDataUpdate] = useState();
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
+    const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+    const [dataUserDetail, setDataUserDetail] = useState(null);
+    const [_idDelete, setIdDelete] = useState(``);
+
+    //! Handling delete click
+    const handleDelete = async () => {
+        //call API + reload
+        console.log("Check id to delete :", _idDelete);
+        let res = await deleteUserAPI(_idDelete);
+        notification.info({
+            message: 'Deleted user'
+        });
+
+        //reload page
+        await loadUser();
+
+    }
+
+    const confirmDelete = () => {
+        Modal.confirm({
+            title: 'Confirm',
+            icon: <ExclamationCircleFilled />,
+            okText: 'Yes, Delete the user',
+            cancelText: 'No, Discard please',
+            onOk: () => { handleDelete(); },
+            onCancel: () => {
+                notification.info({
+                    message: 'Rollback deleting',
+                    description: 'The delete action is NOT conducted !',
+                });
+            },
+        });
+
+    }
+
+    //! ====================
+
+
     // var check = false;
     const columns = [
         {
@@ -16,7 +59,7 @@ const UserTable = (props) => {
             dataIndex: '_id',
             render: (_, record) => {
                 return (
-                    <a href='#'>{record._id}</a>
+                    <a href='#' onClick={() => { setIsInfoModalOpen(true); setDataUserDetail(record) }}>{record._id}</a>
                 )
             }
 
@@ -57,7 +100,12 @@ const UserTable = (props) => {
                         }}
                         style={{ cursor: "pointer", color: "orange" }} />
 
-                    <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
+                    <DeleteOutlined
+                        onClick={() => {
+                            setIdDelete(record._id);
+                            confirmDelete();
+                        }}
+                        style={{ cursor: "pointer", color: "red" }} />
                 </div>
             ),
         },
@@ -80,6 +128,14 @@ const UserTable = (props) => {
             setDataUpdate={setDataUpdate}
             loadUser={loadUser}
         ></UpdateForm>
+
+        <UserDetailForm
+            isInfoModalOpen={isInfoModalOpen}
+            setIsInfoModalOpen={setIsInfoModalOpen}
+            dataUserDetail={dataUserDetail}
+            setDataUserDetail={setDataUserDetail}
+        >
+        </UserDetailForm>
 
     </>);
 }

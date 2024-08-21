@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 const UsersPage = () => {
     const [dataUsers, setDataUsers] = useState();
     useEffect(() => {
-        console.log(`Check use useEffect method hook`);
+        // console.log(`Check use useEffect method hook`);
         loadUser();
     }, []);
 
