@@ -16,29 +16,34 @@ const UserTable = (props) => {
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
     const [dataUserDetail, setDataUserDetail] = useState(null);
-    const [_idDelete, setIdDelete] = useState(``);
 
     //! Handling delete click
-    const handleDelete = async () => {
+    const handleDelete = async (idDelete) => {
         //call API + reload
-        console.log("Check id to delete :", _idDelete);
-        let res = await deleteUserAPI(_idDelete);
-        notification.info({
-            message: 'Deleted user'
-        });
-
-        //reload page
-        await loadUser();
+        console.log(">>>>  Check id to delete : ", idDelete);
+        let res = await deleteUserAPI(idDelete);
+        if (res) {
+            notification.info({
+                message: 'Deleted user'
+            });
+            //reload page
+            await loadUser();
+        }else{
+            notification.error({
+                message: "Something went wrong",
+            })
+        }
 
     }
 
-    const confirmDelete = () => {
+    const confirmDelete = (idDelete) => {
+
         Modal.confirm({
             title: 'Confirm',
             icon: <ExclamationCircleFilled />,
             okText: 'Yes, Delete the user',
             cancelText: 'No, Discard please',
-            onOk: () => { handleDelete(); },
+            onOk: () => { handleDelete(idDelete); },
             onCancel: () => {
                 notification.info({
                     message: 'Rollback deleting',
@@ -102,8 +107,8 @@ const UserTable = (props) => {
 
                     <DeleteOutlined
                         onClick={() => {
-                            setIdDelete(record._id);
-                            confirmDelete();
+                            confirmDelete(record._id);
+
                         }}
                         style={{ cursor: "pointer", color: "red" }} />
                 </div>
