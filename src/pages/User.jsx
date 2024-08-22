@@ -17,13 +17,9 @@ const UsersPage = () => {
 
 
 
-    //this is hardcode img link: https://cdn-icons-png.flaticon.com/512/5556/5556468.png
     const loadUser = async () => {
         const res = await fetchAllUsersAPI();
         const data = res.data;
-        for (let item of data) {
-            item.avatar = 'https://cdn-icons-png.flaticon.com/512/5556/5556468.png';
-        }
         setDataUsers(data);
     }
 

@@ -7,7 +7,6 @@ import UserDetailForm from './UserDetailForm';
 import { deleteUserAPI } from "../../service/api_service";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 
-//TODO: Check to delete correctly
 
 
 const UserTable = (props) => {
@@ -20,17 +19,17 @@ const UserTable = (props) => {
     //! Handling delete click
     const handleDelete = async (idDelete) => {
         //call API + reload
-        console.log(">>>>  Check id to delete : ", idDelete);
         let res = await deleteUserAPI(idDelete);
-        if (res) {
-            notification.info({
-                message: 'Deleted user'
+        if (res && (res.statusCode >= 200 && res.statusCode < 300)) {
+            notification.success({
+                message: "Deleted already"
             });
             //reload page
             await loadUser();
-        }else{
+        } else {
             notification.error({
-                message: "Something went wrong",
+                message: "Error delete",
+                description: JSON.stringify(res.message)
             })
         }
 
@@ -57,14 +56,13 @@ const UserTable = (props) => {
     //! ====================
 
 
-    // var check = false;
     const columns = [
         {
             title: 'ID',
             dataIndex: '_id',
             render: (_, record) => {
                 return (
-                    <a href='#' onClick={() => { setIsInfoModalOpen(true); setDataUserDetail(record) }}>{record._id}</a>
+                    <a href='#' onClick={() => { setIsInfoModalOpen(true); setDataUserDetail(record); }}>{record._id}</a>
                 )
             }
 
@@ -74,7 +72,7 @@ const UserTable = (props) => {
             dataIndex: 'avatar',
             render: (avatar) => (
                 <img
-                    src={avatar}
+                    src={`${import.meta.env.VITE_BACKEND_URL1}/images/avatar/${avatar}`}
                     alt="avatar"
                     style={{ width: 50, height: 50, borderRadius: '50%' }}
                 />
@@ -139,6 +137,7 @@ const UserTable = (props) => {
             setIsInfoModalOpen={setIsInfoModalOpen}
             dataUserDetail={dataUserDetail}
             setDataUserDetail={setDataUserDetail}
+            loadUser={loadUser}
         >
         </UserDetailForm>
 

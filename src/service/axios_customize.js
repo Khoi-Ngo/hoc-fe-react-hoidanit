@@ -30,7 +30,7 @@ instance.interceptors.response.use(function (response) {
     //? Response here having many config relating to HTTP Response 
     // => just need data if success
     if (response.data != null && response.data.data != null)
-        return response.data;//response {status, payload, ...}
+        return response.data;//response {status, payload, ...}x
 }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error

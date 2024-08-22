@@ -33,6 +33,32 @@ const deleteUserAPI = (id) => {
     return axios.delete(URL_BACKEND);
 };
 
+const updateUserAPIVer02 = (_id, fullName, phone, avatar) => {
+    const URL_BACKEND = "/user";
+    const data = {
+        _id: _id,
+        fullName: fullName,
+        phone: phone,
+        avatar: avatar
+    }
+    return axios.put(URL_BACKEND, data);
+}
+
+
+const uploadImageAPI = (file, folder) => {
+    const URL_BACKEND = '/file/upload'
+    let config = {
+        headers: {
+            "upload-type": folder,
+            "Content-Type": "multipart/form-data"
+        }
+    }
+
+    const bodyFormData = new FormData();
+    bodyFormData.append("fileImg", file);
+    return axios.post(URL_BACKEND, bodyFormData, config);
+}
+
 export {
-    createUserAPI, updateUserAPI, fetchAllUsersAPI, deleteUserAPI
+    createUserAPI, updateUserAPI, fetchAllUsersAPI, deleteUserAPI, updateUserAPIVer02, uploadImageAPI,
 }
