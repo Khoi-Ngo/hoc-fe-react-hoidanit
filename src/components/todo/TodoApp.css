@@ -1,0 +1,86 @@
+/* TodoApp.css */
+.todo-container {
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.todo-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.todo-image img {
+    width: 150px;
+    margin-top: 20px;
+    opacity: 0.7;
+}
+
+.task-list-table {
+    margin-top: 20px;
+}
+
+.item-todo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.item-todo:hover {
+    background: #f1f1f1;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    border: none;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-delete:hover {
+    background: #c0392b;
+}
+
+.todo-input-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#input-text {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.btn-add {
+    padding: 10px 20px;
+    background: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-add:hover {
+    background: #27ae60;
+}
