@@ -1,39 +1,49 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import videoBg from '../assets/videoBg.mp4';
 import { Form, Input, Button, notification } from 'antd';
 import { Link, NavLink } from 'react-router-dom';
 import './loginStyle.css';
 import { loginAPI } from '../service/api_service';
 import { useNavigate } from "react-router-dom";
-
+import { AuthContext } from '../components/auth_context';
 
 
 const LoginPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const [form] = Form.useForm();
 
+    const { setUserLogin } = useContext(AuthContext);
+    const [isEntered, setIsEntered] = useState(false);
 
     const onFinish = async (values) => {
-        setIsLoading(true);
-        //call API login
-        const res = await loginAPI(values.email, values.password);
-        if (res.data) {
-            notification.success(
-                {
-                    message: "Login successfully"
-                }
-            )
-            //redirect into HomePage
-            navigate("/");
-        } else {
-            notification.error(
-                {
-                    message: "Login failed",
-                    description: res.message
-                }
-            )
+        if (!isEntered) {
+            setIsEntered(true);
+            setIsLoading(true);
+            //call API login
+            const res = await loginAPI(values.email, values.password);
+            if (res.data) {
+                notification.success(
+                    {
+                        message: "Login successfully"
+                    }
+                );
+                //!SAVE some crucial information user
+                localStorage.setItem("access_token", res.data.access_token);
+                setUserLogin(res.data.user);
+                //redirect into HomePage
+                navigate("/");
+            } else {
+                notification.error(
+                    {
+                        message: "Login failed",
+                        description: res.message
+                    }
+                )
+            }
+            setIsLoading(false);
+            setIsEntered(false);
         }
-        setIsLoading(false);
     };
 
     return (
@@ -41,6 +51,7 @@ const LoginPage = () => {
             <video className="video-bg" src={videoBg} autoPlay loop muted />
             <div className="login-form-container">
                 <Form
+                    form={form}
                     name="login"
                     onFinish={onFinish}
                     className="login-form"
@@ -57,7 +68,12 @@ const LoginPage = () => {
                         name="password"
                         rules={[{ required: true, message: 'Please input your password!' }]}
                     >
-                        <Input.Password placeholder="Password" />
+                        <Input.Password placeholder="Password"
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter') form.submit()
+                            }}
+
+                        />
                     </Form.Item>
 
                     <Form.Item>

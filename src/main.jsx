@@ -12,6 +12,7 @@ import BookPage from './pages/Book.jsx';
 import LoginPage from './pages/Login.jsx';
 import './styles/global.css';
 import TodoApp from './components/todo/TodoApp.jsx';
+import { AuthWrapper } from './components/auth_context.jsx'
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-  <RouterProvider router={router} />
+  <AuthWrapper>
+    <RouterProvider router={router} />
+  </AuthWrapper>
   // {/* </React.StrictMode>, */}
   // strictmode call 2 times
 )

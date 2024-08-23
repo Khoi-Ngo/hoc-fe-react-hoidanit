@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Input, message, notification, Space } from 'antd';
 import { registerUserAPI } from '../service/api_service';
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from 'react-router-dom';
+
 
 
 const RegisterPage = () => {
@@ -11,7 +12,9 @@ const RegisterPage = () => {
         "For business",
         "For study"
     ];
-    
+
+    const [isEntered, setIsEntered] = useState(false);
+
 
     //! In this code we DO NOT control the fields -> it auto re-render by its lib
 
@@ -22,35 +25,39 @@ const RegisterPage = () => {
     const navigate = useNavigate();
 
     const onFinish = async (values) => {
-        //render random usage
-        if (!values.usingTarget) {
-            const randomUsage = usageList[Math.floor(Math.random() * usageList.length)];
-            form.setFieldValue("usingTarget", randomUsage);
-        }
-        const res = await registerUserAPI(
-            values.fullName,
-            values.email,
-            values.password,
-            values.phone
-        );
+        if (!isEntered) {
+            setIsEntered(true);
+            //render random usage
+            if (!values.usingTarget) {
+                const randomUsage = usageList[Math.floor(Math.random() * usageList.length)];
+                form.setFieldValue("usingTarget", randomUsage);
+            }
+            const res = await registerUserAPI(
+                values.fullName,
+                values.email,
+                values.password,
+                values.phone
+            );
 
-        if (res.data) {
-            //notification
-            notification.success({
-                message: "Register Successfully",
-                description: JSON.stringify(
-                    form.getFieldValue()
+            if (res.data) {
+                //notification
+                notification.success({
+                    message: "Register Successfully",
+                    description: JSON.stringify(
+                        form.getFieldValue()
+                    )
+                })
+                //redirect
+                navigate("/login"); //same return
+            } else {
+                notification.error(
+                    {
+                        message: "Register user error",
+                        description: JSON.stringify(res.message)
+                    }
                 )
-            })
-            //redirect
-            navigate("/login");
-        } else {
-            notification.error(
-                {
-                    message: "Register user error",
-                    description: JSON.stringify(res.message)
-                }
-            )
+            }
+            setIsEntered(true);
         }
     };
 
@@ -131,14 +138,22 @@ const RegisterPage = () => {
                             },
                         ]}
                     >
-                        <Input style={{ borderRadius: "6px", padding: "10px" }} />
+                        <Input style={{ borderRadius: "6px", padding: "10px" }}
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter') form.submit()
+                            }}
+                        />
                     </Form.Item>
 
                     <Form.Item
                         name="usingTarget"
                         label="What do you want on this application ?"
                     >
-                        <Input style={{ borderRadius: "6px", padding: "10px" }} />
+                        <Input style={{ borderRadius: "6px", padding: "10px" }}
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter') form.submit()
+                            }}
+                        />
                     </Form.Item>
                     <Form.Item>
                         <Space style={{ display: "flex", justifyContent: "center" }}>

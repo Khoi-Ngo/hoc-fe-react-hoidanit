@@ -1,12 +1,13 @@
 import { Button, Input, message, Modal, notification } from "antd";
 import './UserForm.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createUserAPI } from "../../service/api_service";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 
 
 
 const UserForm = (props) => {
+
     //declaring state variables
 
     const { loadUser } = props;
@@ -15,6 +16,7 @@ const UserForm = (props) => {
     const [password, setPassword] = useState(``);
     const [phone, setPhone] = useState(``);
     const [isModalOpen, setIsModelOpen] = useState(false);
+
 
     const handleOnClick = () => {
         setIsModelOpen(true);
@@ -33,7 +35,6 @@ const UserForm = (props) => {
 
     const handleOnClickOKCreateModal = async () => {
         let response = await createUserAPI(fullName, email, password, phone);
-        // console.log(`Check response promise from axios: ${response.data.data}`);
         if (response.data != null) {//after going through interceptor the response 
             notification.success(
                 {
@@ -81,7 +82,7 @@ const UserForm = (props) => {
         <>
             <div className="user-form">
 
-                <div>
+                <div style={{marginTop: '15px'}}>
                     <Button type='primary'
                         onClick={handleOnClick}
                     >Create User</Button>

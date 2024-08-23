@@ -32,14 +32,11 @@ const UpdateForm = (props) => {
 
 
     const handleOnClickOKUpdateModal = async () => {
-        // console.log("Check data update: ", dataUpdate);
-        // console.log("Check ", {id, fullName, phone});
 
         let response = await updateUserAPI(id, fullName, phone);
 
 
 
-        // console.log(`Check response promise from axios: ${response.data.data}`);
         if (response.data != null) {//after going through interceptor the response 
             notification.success(
                 {

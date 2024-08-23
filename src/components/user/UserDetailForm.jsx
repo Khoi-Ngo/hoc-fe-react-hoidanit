@@ -84,7 +84,6 @@ const UserDetailForm = (props) => {
     const handleUpdateUser = async (newAvatar) => {
         //call the API update user
         const resUpdate = await updateUserAPIVer02(_id, fullName, phone, newAvatar);
-        console.log({ _id, fullName, phone, newAvatar });
 
         if (resUpdate.data != null) {
             notification.success(
