@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Form, Input, message, notification, Space } from 'antd';
 import { registerUserAPI } from '../service/api_service';
 import { useNavigate } from "react-router-dom";
+import { Link, NavLink } from 'react-router-dom';
+
 
 const RegisterPage = () => {
     const usageList = [
@@ -9,6 +11,7 @@ const RegisterPage = () => {
         "For business",
         "For study"
     ];
+    
 
     //! In this code we DO NOT control the fields -> it auto re-render by its lib
 
@@ -149,7 +152,7 @@ const RegisterPage = () => {
                                     fontWeight: "bold",
                                 }}
                             >
-                                Submit
+                                Register Now
                             </Button>
                             <Button
                                 htmlType="button"
@@ -160,9 +163,16 @@ const RegisterPage = () => {
                                     marginLeft: "10px",
                                 }}
                             >
-                                Reset
+                                Clear all
                             </Button>
                         </Space>
+                    </Form.Item>
+                    <Form.Item>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
+                            <Link to={"/login"}><u>Back to login</u></Link>
+                            <Link to={"/"}><u>Back to homepage</u></Link>
+
+                        </div>
                     </Form.Item>
                 </Form>
             </div>

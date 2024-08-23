@@ -152,7 +152,6 @@ const UserTable = (props) => {
                 showSizeChanger: false,
                 total: total,
                 showTotal: (total, range) => {
-                    console.log(range);
                     //? Range here will be [first index of page, last index of per page]
                     return (<div> {range[0]}-{range[1]} trên {total} rows</div>);
                 }
