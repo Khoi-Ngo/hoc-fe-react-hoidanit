@@ -60,6 +60,18 @@ const uploadImageAPI = (file, folder) => {
     return axios.post(URL_BACKEND, bodyFormData, config);
 }
 
+const registerUserAPI = (fullName, email, password, phone) => {
+    const URL_BACKEND = '/user/register'
+    const data = {
+        fullName: fullName,
+        email: email,
+        password: password,
+        phone: phone
+    }
+    return axios.post(URL_BACKEND, data);
+}
+
 export {
     createUserAPI, updateUserAPI, fetchAllUsersAPI, deleteUserAPI, updateUserAPIVer02, uploadImageAPI,
+    registerUserAPI
 }

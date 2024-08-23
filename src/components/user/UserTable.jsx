@@ -7,7 +7,6 @@ import UserDetailForm from './UserDetailForm';
 import { deleteUserAPI } from "../../service/api_service";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 
-//TODO: try to use pagination supported by backend and antd
 
 const UserTable = (props) => {
     let { dataUsers, loadUser,
