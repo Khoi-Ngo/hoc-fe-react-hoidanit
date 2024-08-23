@@ -5,11 +5,15 @@ import { useEffect, useState } from 'react';
 
 
 const UsersPage = () => {
+
+    const [current, setCurrent] = useState(1);
+    const [pageSize, setPageSize] = useState(7);
+    const [total, setTotal] = useState(0);
+
     const [dataUsers, setDataUsers] = useState();
     useEffect(() => {
-        // console.log(`Check use useEffect method hook`);
         loadUser();
-    }, []);
+    }, [current]);
 
     //! [] meaning run ONLY ONCE
 
@@ -18,9 +22,13 @@ const UsersPage = () => {
 
 
     const loadUser = async () => {
-        const res = await fetchAllUsersAPI();
-        const data = res.data;
-        setDataUsers(data);
+        const res = await fetchAllUsersAPI(current, pageSize);
+        if (res.data) {
+            setDataUsers(res.data.result);
+            setPageSize(res.data.meta.pageSize);
+            setCurrent(res.data.meta.current);
+            setTotal(res.data.meta.total);
+        }
     }
 
     return (
@@ -30,6 +38,12 @@ const UsersPage = () => {
                 <UserTable
                     dataUsers={dataUsers}
                     loadUser={loadUser}
+                    current={current}
+                    pageSize={pageSize}
+                    total={total}
+                    setCurrent={setCurrent}
+                    setPageSize={setPageSize}
+
                 />
             </div>
         </>

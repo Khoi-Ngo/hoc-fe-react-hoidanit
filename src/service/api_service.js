@@ -22,9 +22,9 @@ const updateUserAPI = (_id, fullName, phone) => {
 }
 
 
-const fetchAllUsersAPI = () => {
-    // const URL_BACKEND = "/user?current=1&pageSize=1";
-    const URL_BACKEND = "/user"
+const fetchAllUsersAPI = (current, pageSize) => {
+    const URL_BACKEND = `/user?current=${current}&pageSize=${pageSize}`;
+    // const URL_BACKEND = "/user"
     return axios.get(URL_BACKEND);
 }
 

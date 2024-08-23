@@ -10,7 +10,10 @@ import { ExclamationCircleFilled } from "@ant-design/icons";
 //TODO: try to use pagination supported by backend and antd
 
 const UserTable = (props) => {
-    let { dataUsers, loadUser } = props;
+    let { dataUsers, loadUser,
+        current, pageSize, total,
+        setCurrent, setPageSize
+    } = props;
     const [dataUpdate, setDataUpdate] = useState();
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
@@ -61,7 +64,7 @@ const UserTable = (props) => {
             title: "Index",
             render: (_, record, index) => {
                 return (
-                    <>{index + 1}</>
+                    <>{(index + 1) + (pageSize * (current - 1))}</>
                 )
             }
         },
@@ -125,6 +128,13 @@ const UserTable = (props) => {
         },
 
     ];
+    const onChange = (pagination, filters, sorter, extra) => {
+        if (pagination && pagination.current) {
+            if (+pagination.current !== +current) {
+                setCurrent(+pagination.current);
+            }
+        }
+    };
 
 
 
@@ -132,6 +142,25 @@ const UserTable = (props) => {
         columns={columns}
         dataSource={dataUsers}
         rowKey={"_id"}
+
+
+
+
+        pagination={
+            {
+                current: current,
+                pageSize: pageSize,
+                showSizeChanger: false,
+                total: total,
+                showTotal: (total, range) => {
+                    console.log(range);
+                    //? Range here will be [first index of page, last index of per page]
+                    return (<div> {range[0]}-{range[1]} trên {total} rows</div>);
+                }
+            }
+        }
+        onChange={onChange}
+
     />
 
 
