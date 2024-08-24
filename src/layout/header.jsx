@@ -9,7 +9,7 @@ after login set into the var context AuthWrapper -> cover all the app => can use
 after login set token into local storage => supported by browser already 
 */
 
-// TODO handle hidden or show the action when login and not
+// TODO handle UI UX and logout and show info
 
 const Header = () => {
 
@@ -66,14 +66,14 @@ const Header = () => {
                         display: 'block',
                         backgroundColor: 'transparent',
                         borderBottom: 'none',
-                        width: '93%',
+                        width: '97.5%',
                         height: '100%'
                     }}
                 />
 
                 <div
                     style={{
-                        width: '3%',
+                        width: '2.5%',
                         height: '100%'
 
                     }}
