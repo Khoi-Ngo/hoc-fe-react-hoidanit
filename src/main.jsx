@@ -14,6 +14,7 @@ import './styles/global.css';
 import TodoApp from './components/todo/TodoApp.jsx';
 import { AuthWrapper } from './components/auth_context.jsx'
 import { ProfilePage } from './pages/ProfilePage.jsx';
+import { AllUserRolesRoutes } from './components/all_role_user_route.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,12 +30,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/users",
-        element: <UsersPage />,
+        element: <AllUserRolesRoutes>
+          <UsersPage />
+        </AllUserRolesRoutes>,
       },
       {
         //TODO need to complete books page
         path: "/books",
-        element: <BookPage />,
+        element: (
+          <AllUserRolesRoutes>
+            <BookPage />
+          </AllUserRolesRoutes>
+        )
+        ,
       },
 
       {
