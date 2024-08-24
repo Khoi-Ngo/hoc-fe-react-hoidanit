@@ -20,8 +20,13 @@ export const AuthWrapper = (props) => {
 
     const [otherStuffRelatingAuth, setOtherStuffRelatingAuth] = useState();
 
+    const [isAppLoading, SetIsAppLoading] = useState(true);
+
     return (
-        <AuthContext.Provider value={{ userLogin, setUserLogin, otherStuffRelatingAuth, setOtherStuffRelatingAuth }}>
+        <AuthContext.Provider value={{
+            userLogin, setUserLogin, otherStuffRelatingAuth, setOtherStuffRelatingAuth,
+            isAppLoading, SetIsAppLoading
+        }}>
             {props.children}
             {/* this is child place holder if nothing then not show if having then show basing or page design */}
         </AuthContext.Provider>
