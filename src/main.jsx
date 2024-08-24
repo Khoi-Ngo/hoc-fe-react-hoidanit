@@ -13,6 +13,7 @@ import LoginPage from './pages/Login.jsx';
 import './styles/global.css';
 import TodoApp from './components/todo/TodoApp.jsx';
 import { AuthWrapper } from './components/auth_context.jsx'
+import { ProfilePage } from './pages/ProfilePage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,9 +32,16 @@ const router = createBrowserRouter([
         element: <UsersPage />,
       },
       {
+        //TODO need to complete books page
         path: "/books",
         element: <BookPage />,
       },
+
+      {
+        //TODO: need to complete user profile page
+        path: "/profile",
+        element: <ProfilePage />
+      }
     ],
   },
   {
