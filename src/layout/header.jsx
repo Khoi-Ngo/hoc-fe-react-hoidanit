@@ -1,7 +1,7 @@
-import { Link, NavLink } from 'react-router-dom';
-import React, { useContext, useState } from 'react';
-import { AppstoreOutlined, BookOutlined, TeamOutlined, HomeFilled } from '@ant-design/icons';
-import { Menu } from 'antd';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { AppstoreOutlined, BookOutlined, TeamOutlined, HomeFilled, UserOutlined, LogoutOutlined, AuditOutlined, UsergroupAddOutlined, HomeOutlined } from '@ant-design/icons';
+import { Avatar, Dropdown, Menu } from 'antd';
 import { AuthContext } from '../components/auth_context';
 
 /*
@@ -14,85 +14,140 @@ after login set token into local storage => supported by browser already
 const Header = () => {
 
     const { userLogin } = useContext(AuthContext);
+    const userLoginId = userLogin.id;
 
-    console.log(userLogin);
+   
+    
+
+
+    const [current, setCurrent] = useState('');
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location && location.pathname) {
+            const allRoutes = ["users", "books"];
+            const currentRoute = allRoutes.find(item => `/${item}` === location.pathname);
+            if (currentRoute) {
+                setCurrent(currentRoute);
+            } else {
+                setCurrent("home");
+            }
+        }
+    }, [location]);
+
+
+    const onClick = (e) => {
+        setCurrent(e.key);
+    };
+
+    const profileMenu = (
+        <Menu>
+            <Menu.Item key="userProfile" icon={<UserOutlined />}>
+                <Link to="/userprofile">User Profile</Link>
+            </Menu.Item>
+            <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={() => {/* handle logout logic here */ }}>
+                Logout
+            </Menu.Item>
+        </Menu>
+    );
+
+
 
     const items = [
         {
-            label: <Link to={"/"}>HOME PAGE</Link>,
+            label: <Link to={"/"}>Home</Link>,
             key: 'home',
-            icon: <HomeFilled />,
+            icon: <HomeOutlined />,
         },
         {
-            label: <Link to={"/users"}>USERS PAGE</Link>,
+            label: <Link to={"/users"}>Users</Link>,
             key: 'users',
-            icon: <TeamOutlined />,
+            icon: <UsergroupAddOutlined />
         },
         {
-            label: <Link to={"/books"}>BOOKS PAGE</Link>,
+            label: <Link to={"/books"}>Books</Link>,
             key: 'books',
-            icon: <BookOutlined />,
+            icon: <AuditOutlined />,
         },
 
 
     ];
 
-    const [current, setCurrent] = useState('home');
-    const onClick = (e) => {
-        setCurrent(e.key);
-    };
+
     return (
         <>
-            <div
-                className="header-container"
+            <div className='header-container'
                 style={{
                     display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    // backgroundImage: `url('https://as1.ftcdn.net/v2/jpg/05/00/76/74/1000_F_500767402_TzmpKIy2lmJGk8BV9QqvNkdoKm0XvR2p.jpg')`,
+                    justifyContent: 'flex-end',
                     backgroundColor: 'white',
-                    backgroundSize: 'cover', // Ensures the image covers the whole area
-                    backgroundPosition: 'center', // Centers the image
-                    padding: '15px',
-                    height: '7vh'
                 }}
             >
+                {/* Left side stuffs */}
                 <Menu
                     onClick={onClick}
                     selectedKeys={[current]}
                     mode="horizontal"
                     items={items}
                     style={{
-                        display: 'block',
                         backgroundColor: 'transparent',
                         borderBottom: 'none',
-                        width: '97.5%',
-                        height: '100%'
+                        marginRight: 'auto',
+                        marginLeft: '20px'
                     }}
                 />
+                {/* Right side stuffs */}
 
                 <div
+                    className="profile-icon"
                     style={{
-                        width: '2.5%',
-                        height: '100%'
-
+                        marginRight: '20px',
+                        textAlign: 'center',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                     }}
                 >
-                    <img
-                        src={`${import.meta.env.VITE_BACKEND_URL1}/images/avatar/${userLogin.avatar}`}
-                        alt="avatar"
-                        style={{
-                            width: '80%',
-                            height: '100%',
-                            borderRadius: '50%',
-                            border: '2px solid black'
-                        }}
-                    />
+                    {userLoginId ? (
+                        <Dropdown overlay={profileMenu} trigger={['click']}>
+                            <Avatar
+                                src={`${import.meta.env.VITE_BACKEND_URL1}/images/avatar/${userLogin.avatar}`}
+                                alt="avatar"
+                                style={{
+                                    borderRadius: '50%',
+                                    border: '0.3px solid black',
+                                    cursor: 'pointer',
+                                }}
+                            />
+                        </Dropdown>
+                    ) : (
+                        <Link to="/login" style={{ color: 'black' }}>Login</Link>
+                    )}
+
+
                 </div>
             </div>
+
+            {/* <Menu.item key="profile">
+                    <div style={{ marginLeft: 'auto', marginRight: '' }}>
+                        
+
+
+                    </div>
+                </Menu.item> */}
+
+            {/* </Menu> */}
+
+
+
         </>
     );
 
 
 }
-export default Header; 
+export default Header;
+
+
+
+
+
