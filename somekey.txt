@@ -4,3 +4,4 @@ dJYUg79AwW7As6K6
 sample database MongoDb
 
 samle connection string: mongodb+srv://khoingomgdb01:<dJYUg79AwW7As6K6>@cluster0.qstgs.mongodb.net/
+
