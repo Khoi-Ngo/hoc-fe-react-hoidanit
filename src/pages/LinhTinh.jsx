@@ -14,5 +14,5 @@ export const LinhTinh = () => {
 
         {JSON.stringify(data)}
 
-    </>); 
+    </>);
 }

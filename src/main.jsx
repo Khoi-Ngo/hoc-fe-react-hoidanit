@@ -16,6 +16,7 @@ import { AuthWrapper } from './components/auth_context.jsx'
 import { ProfilePage } from './pages/ProfilePage.jsx';
 import { AllUserRolesRoutes } from './components/all_role_user_route.jsx';
 import { LinhTinh } from './pages/LinhTinh.jsx';
+import { Counter } from './pages/test-redux.js';
 
 const router = createBrowserRouter([
   {
@@ -64,9 +65,10 @@ const router = createBrowserRouter([
 
   {
     path: "/linhtinh",
-    element: <LinhTinh />,
+    element: <Counter />,
     errorElement: <ErrorPage />
   },
+
 
 ]);
 
