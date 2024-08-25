@@ -16,6 +16,7 @@ const UserDetailForm = (props) => {
     const [tempURLImage, setTempURLImage] = useState();
     const [fileUploaded, setFileUploaded] = useState();
     const [isUpdatedAvatar, setIsUpdatedAvatar] = useState(false);
+    
 
     useEffect(() => {
         if (dataUserDetail) {

@@ -28,6 +28,22 @@ const fetchAllUsersAPI = (current, pageSize) => {
     return axios.get(URL_BACKEND);
 }
 
+const fetchAllBookAPI = (current, pageSize) => {
+    const URL_BACKEND = `/book?current=${current}&pageSize=${pageSize}`;
+    return axios.get(URL_BACKEND);
+}
+
+
+
+
+
+const fetchAllUsersAPIVerHAHA = () => {
+
+    const URL_BACKEND = "/user"
+    return axios.get(URL_BACKEND);
+}
+
+
 
 const deleteUserAPI = (id) => {
     const URL_BACKEND = `/user/${id}`;
@@ -86,8 +102,13 @@ const getAccountAPI = () => {
     return axios.get(URL_BACKEND);
 }
 
+const callLogoutAPI = () => {
+    const URL_BACKEND = "/auth/logout"
+    return axios.post(URL_BACKEND);
+}
+
 
 export {
     createUserAPI, updateUserAPI, fetchAllUsersAPI, deleteUserAPI, updateUserAPIVer02, uploadImageAPI,
-    registerUserAPI, loginAPI, getAccountAPI
+    registerUserAPI, loginAPI, getAccountAPI, callLogoutAPI, fetchAllUsersAPIVerHAHA, fetchAllBookAPI
 }

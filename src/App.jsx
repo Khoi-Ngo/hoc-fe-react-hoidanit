@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Layout, Spin } from 'antd';
 import { useContext, useEffect } from 'react';
 import { AuthContext } from './components/auth_context';
-import { getAccountAPI } from './service/api_service';
+import { fetchAllBookAPI, fetchAllUsersAPIVerHAHA, getAccountAPI } from './service/api_service';
 
 const App = () => {
   const { userLogin, setUserLogin, isAppLoading, SetIsAppLoading } = useContext(AuthContext);
@@ -17,12 +17,19 @@ const App = () => {
     })
   }
 
+
+
+
   const fetchUserInfo = async () => {
-    console.log("Haha why do not use useCallback");
     const res = await getAccountAPI();
-    // await delay(1000);
+    await delay(500);
     if (res.data) {
-      setUserLogin(res.data.user);
+      //got the id here
+      const userLoginId = res.data.user._id;
+      const resHAHA = await fetchAllUsersAPIVerHAHA();
+      const reloadUser = resHAHA.data.find(item => item.id === userLoginId);
+      reloadUser.id = reloadUser._id;
+      setUserLogin(reloadUser);
     }
     SetIsAppLoading(false);
   };
@@ -45,7 +52,9 @@ const App = () => {
       <>
         <Layout style={{ minHeight: '80vh' }}>
           <Header />
-          <Outlet />
+          <Outlet
+            fetchUserInfo={fetchUserInfo}
+          />
         </Layout>
         <Footer />
       </>
@@ -58,7 +67,6 @@ export default App;
 
 
 // const fetchUserInfo = useCallback(async () => {
-//   console.log("Haha why do not use useCallBack");
 //   const res = await getAccountAPI();
 //   if (res.data) {
 //     setUserLogin(res.data.user);

@@ -15,6 +15,7 @@ import TodoApp from './components/todo/TodoApp.jsx';
 import { AuthWrapper } from './components/auth_context.jsx'
 import { ProfilePage } from './pages/ProfilePage.jsx';
 import { AllUserRolesRoutes } from './components/all_role_user_route.jsx';
+import { LinhTinh } from './pages/LinhTinh.jsx';
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,6 @@ const router = createBrowserRouter([
         </AllUserRolesRoutes>,
       },
       {
-        //TODO need to complete books page
         path: "/books",
         element: (
           <AllUserRolesRoutes>
@@ -46,7 +46,6 @@ const router = createBrowserRouter([
       },
 
       {
-        //TODO: need to complete user profile page
         path: "/profile",
         element: <ProfilePage />
       }
@@ -60,6 +59,12 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+    errorElement: <ErrorPage />
+  },
+
+  {
+    path: "/linhtinh",
+    element: <LinhTinh />,
     errorElement: <ErrorPage />
   },
 

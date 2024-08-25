@@ -1,8 +1,10 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import React, { useContext, useEffect, useState } from 'react';
 import { AppstoreOutlined, BookOutlined, TeamOutlined, HomeFilled, UserOutlined, LogoutOutlined, AuditOutlined, UsergroupAddOutlined, HomeOutlined } from '@ant-design/icons';
-import { Avatar, Dropdown, Menu } from 'antd';
+import { Avatar, Dropdown, Menu, notification } from 'antd';
 import { AuthContext } from '../components/auth_context';
+import { useNavigate } from "react-router-dom";
+import { callLogoutAPI } from '../service/api_service';
 
 /*
 after login set into the var context AuthWrapper -> cover all the app => can use globally on the app
@@ -13,11 +15,39 @@ after login set token into local storage => supported by browser already
 
 const Header = () => {
 
-    const { userLogin } = useContext(AuthContext);
+    const { userLogin, setUserLogin } = useContext(AuthContext);
     const userLoginId = userLogin.id;
+    const navigate = useNavigate();
 
-   
-    
+    const handleLogout = async () => {
+        //call API -> notification
+        const res = await callLogoutAPI();
+        if (res.data) {
+            notification.info(
+                {
+                    message: "Logout already!"
+                }
+            )
+            //clear client user information
+            localStorage.removeItem("access_token");
+            setUserLogin(   
+                {
+                    email: "",
+                    phone: "",
+                    fullName: "",
+                    role: "",
+                    avatar: "",
+                    id: ""
+                }
+            );
+
+            navigate("/login");
+
+        }
+
+
+    }
+
 
 
     const [current, setCurrent] = useState('');
@@ -43,9 +73,11 @@ const Header = () => {
     const profileMenu = (
         <Menu>
             <Menu.Item key="userProfile" icon={<UserOutlined />}>
-                <Link to="/userprofile">User Profile</Link>
+                <Link to="/profile">User Profile</Link>
             </Menu.Item>
-            <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={() => {/* handle logout logic here */ }}>
+            <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={() => {/* handle logout logic here */
+                handleLogout();
+            }}>
                 Logout
             </Menu.Item>
         </Menu>
